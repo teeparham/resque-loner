@@ -1,4 +1,7 @@
 *.gem
 **.swp
 Gemfile.lock
+spec/dump.rdb
 spec/stdout
+test/dump.rdb
+test/stdout
