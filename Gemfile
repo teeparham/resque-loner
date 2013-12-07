@@ -3,7 +3,6 @@ gemspec
 
 group :development do
   gem 'gemcutter'
-  gem 'debugger', :platform => :mri_19
 end
 
 group :test do
