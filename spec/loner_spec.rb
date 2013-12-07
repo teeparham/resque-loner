@@ -25,11 +25,6 @@ class FailingUniqueJob
   end
 end
 
-class DeprecatedUniqueJob < Resque::Plugins::Loner::UniqueJob
-  @queue = :other_queue
-  def self.perform(foo); end
-end
-
 class UniqueJobWithTtl
   include Resque::Plugins::UniqueJob
   @queue = :unique_with_ttl
@@ -62,12 +57,6 @@ describe "Resque" do
     it "should allow only one of the same job to sit in a queue" do
       Resque.enqueue SomeUniqueJob, "foo"
       Resque.enqueue SomeUniqueJob, "foo"
-      Resque.size(:other_queue).should == 1
-    end
-
-    it "should support deprecated Resque::Plugins::Loner::UniqueJob class" do
-      Resque.enqueue DeprecatedUniqueJob, "foo"
-      Resque.enqueue DeprecatedUniqueJob, "foo"
       Resque.size(:other_queue).should == 1
     end
 

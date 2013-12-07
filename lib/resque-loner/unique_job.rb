@@ -7,17 +7,14 @@ require 'digest/md5'
 module Resque
   module Plugins
     module UniqueJob
-
       def self.included(base)
         base.extend         ClassMethods
         base.class_eval do
           base.send(:extend, Resque::Helpers)
         end
       end # self.included
-
+      
       module ClassMethods
-
-
         #
         #  Payload is what Resque stored for this job along with the job's class name.
         #  On a Resque with no plugins installed, this is a hash containing :class and :args
@@ -65,26 +62,6 @@ module Resque
         end
 
       end # ClassMethods
-
-
-    end
-  end
-end
-
-module Resque
-  module Plugins
-    module Loner
-      class UniqueJob
-
-        include Resque::Plugins::UniqueJob
-
-        def self.inherited(host)
-          super(host)
-          return  if @__unique_job_warned
-          warn "Inherit Resque::Plugins::Loner::UniqueJob is deprecated. Include Resque::Plugins::UniqueJob module instead."
-          @__unique_job_warned = true
-        end
-      end
     end
   end
 end
