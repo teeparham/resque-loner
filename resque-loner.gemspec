@@ -8,25 +8,20 @@ Gem::Specification.new do |s|
   s.name        = 'resque-loner'
   s.version     = Resque::Plugins::Loner::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Jannis Hermanns']
-  s.email       = ['jannis@moviepilot.com']
-  s.homepage    = 'http://github.com/jayniz/resque-loner'
-  s.summary     = 'Adds unique jobs to resque'
-  s.has_rdoc    = false
+  s.authors     = ['Jannis Hermanns', 'Tee Parham']
+  s.email       = ['jannis@moviepilot.com', 'tee@neighborland.com']
+  s.homepage    = 'http://github.com/teeparham/resque-loner'
+  s.summary     = 'Adds unique jobs to resque (fork)'
 
-  s.rubyforge_project = 'resque-loner'
+  s.add_dependency 'resque', '~> 1.25'
+  s.add_development_dependency 'rake', '~> 10.1'
+  s.add_development_dependency 'rack-test', '~> 0.6'
+  s.add_development_dependency 'rspec', '~> 2.5'
+  s.add_development_dependency 'mock_redis', '~> 0.2'
+  
+  s.required_ruby_version = '>= 2.0.0'  
 
-  s.add_dependency 'resque', '~>1.0'
-  {
-    'rake'                => '> 0.8.7',
-    'rack-test'           => '~> 0.5.7',
-    'rspec'               => '~> 2.5.0',
-    'mock_redis'          => '~> 0.2.0',
-  }.each do |lib, version|
-    s.add_development_dependency lib, version
-  end
-
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.executables   = []
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]

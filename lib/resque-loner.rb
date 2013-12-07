@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'resque'
 require 'resque-loner/unique_job'
 require 'resque-loner/helpers'
