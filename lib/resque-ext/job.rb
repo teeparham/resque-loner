@@ -5,8 +5,6 @@
 # 
 module Resque
   class Job
-
-
     #
     #  Overwriting original create method to mark an item as queued
     #  after Resque::Job.create has called Resque.push
@@ -20,7 +18,7 @@ module Resque
       Resque.redis.multi do
         create_return_value = create_without_loner(queue, klass, *args)
         Resque::Plugins::Loner::Helpers.mark_loner_as_queued(queue, item)
-      end.first
+      end
       create_return_value
     end
 
@@ -44,9 +42,6 @@ module Resque
       destroy_without_loner(queue, klass, *args)
     end
 
-    #
-    # Chain..
-    #
     class << self
       alias_method :create_without_loner, :create
       alias_method :create, :create_with_loner
