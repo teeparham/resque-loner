@@ -1,28 +1,12 @@
-#
-# Setup
-#
-
-$LOAD_PATH.unshift 'lib'
-
-require "bundler"
-Bundler.setup
-
-require 'rspec/core/rake_task'
-
-load 'tasks/redis.rake'
+#!/usr/bin/env rake
+require 'bundler/gem_tasks'
 require 'rake/testtask'
-
+require 'rspec/core/rake_task'
+load 'tasks/redis.rake'
 require 'resque/tasks'
 
-require 'bundler/gem_tasks'
+task default: :spec
 
-#
-# Tests
-#
-
-task :default => :spec
-
-desc "Run specs for resque-loner"
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = "spec/**/*_spec.rb"
   t.rspec_opts = %w(-fd -c)
@@ -33,19 +17,4 @@ Rake::TestTask.new do |test|
   test.test_files = FileList['test/**/*_test.rb']
 end
 
-#
-# Install
-#
-
-task :install => [ 'redis:install', 'dtach:install' ]
-
-
-#
-# Documentation
-#
-
-begin
-  require 'sdoc_helpers'
-rescue LoadError
-end
-
+task install: [ 'redis:install', 'dtach:install' ]
